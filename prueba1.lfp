@@ -1,0 +1,8 @@
+mate_de_computo_1 = { 
+	< "Estudiante 01" ; 65 >, 
+	< "Estudiante 02" ; 89.5 >, 
+	< "Estudiante 03" ; 36 >, 
+< "Estudiante 04" ; 65 >,
+	< "Estudiante 05" ; 99.92 >,
+	< "Estudiante 06" ; 71 >
+} PARAMETRO
