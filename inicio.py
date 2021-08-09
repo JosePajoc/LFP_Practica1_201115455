@@ -13,6 +13,7 @@ archivoLFP = []                                                 #Lista para cada
 curso = ""
 parametros = ""
 alumnos = []                                                    #Lista de objetos estudiantes
+listaParametros = []
 
 def separador():
     print("-------------------------------------------------------------------------------------")
@@ -31,12 +32,13 @@ def cargarArchivo():
         archivoCargado = False
 
 def procesarArchivo():
-    global archivoLFP, curso, parametros, alumnos, archivoCargado
+    global archivoLFP, curso, parametros, alumnos, archivoCargado, listaParametros
     
     curso1 = archivoLFP[0].replace(" = {", "")
     curso = curso1.replace("\n", "")
     
     parametros = archivoLFP[len(archivoLFP)-1].replace("} ","")
+    listaParametros = parametros.split(", ")
     
     for x in range(1,len(archivoLFP)-1):        
         temporal = archivoLFP[x].split(";")                     #Lista temporal de estudiantes
@@ -64,7 +66,7 @@ def ascendenteNotas():
                 alumnos[j] = temp
 
 def descendenteNotas():
-    global alumnos                                  #Solo se recorre la lista de atrás hacia adelante
+    global alumnos                                              #Solo se recorre la lista de atrás hacia adelante
     tamano = len(alumnos)
     for i in range(tamano-1, -1, -1):
         print(alumnos[i].verNombre())
@@ -83,30 +85,46 @@ def ganoPerdioPromedio():
         cantidad = cantidad + 1
     promedio = suma / cantidad
 
+
 def mostrarConsola():
-    global curso, parametros,alumnos, gano, perdio, promedio
+    global curso, parametros,alumnos, gano, perdio, promedio, listaParametros
+
+    ascendenteNotas()
+    ganoPerdioPromedio()
+
     separador()
     print("Curso: " + curso)
     separador()
-    print("Paramétros: " + parametros)
-    separador()
     print("Total de estudiantes: " + str(len(alumnos)))
     separador()
-    ascendenteNotas()
-    print("Estudiantes: ")
-    for i in range(len(alumnos)):
-        print(alumnos[i].verNombre())
-        print(alumnos[i].verNota())
-    separador()
-    descendenteNotas()
-    separador()
-    print("Nota máxima, alumno: " + alumnos[len(alumnos)-1].verNombre() + " Nota: " + str(alumnos[len(alumnos)-1].verNota()))
-    print("Nota mínima, alumno: " + alumnos[0].verNombre() + " Nota: " + str(alumnos[0].verNota()))
-    separador()
-    ganoPerdioPromedio()
-    print('Total de aprobados: ' + str(gano))
-    print('Total de reaprobados: ' + str(perdio))
-    print('Promedio: ' + str(promedio))
+    print("Paramétros: ")
+    print(listaParametros)
+    
+    for i in range(len(listaParametros)):
+        if listaParametros[i].upper() == "ASC":
+            separador()
+            print("Estudiantes: ")
+            for i in range(len(alumnos)):
+                print(alumnos[i].verNombre())
+                print(alumnos[i].verNota())
+        elif listaParametros[i].upper() == "DESC":
+            separador()
+            descendenteNotas()
+        elif listaParametros[i].upper() == "AVG":
+            separador()
+            print('Promedio: ' + str(promedio))
+        elif listaParametros[i].upper() == "MIN":
+            separador()
+            print("Nota mínima, alumno: " + alumnos[0].verNombre() + " Nota: " + str(alumnos[0].verNota()))
+        elif listaParametros[i].upper() == "MAX":
+            separador()
+            print("Nota máxima, alumno: " + alumnos[len(alumnos)-1].verNombre() + " Nota: " + str(alumnos[len(alumnos)-1].verNota()))
+        elif listaParametros[i].upper() == "APR":
+            separador()
+            print('Total de aprobados: ' + str(gano))
+        elif listaParametros[i].upper() == "REP":
+            separador()
+            print('Total de reaprobados: ' + str(perdio))
 
 
 while opcion!=4:

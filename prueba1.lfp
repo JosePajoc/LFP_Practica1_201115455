@@ -5,4 +5,4 @@ mate_de_computo_1 = {
 < "Estudiante 04" ; 65 >,
 	< "Estudiante 05" ; 99.92 >,
 	< "Estudiante 06" ; 71 >
-} PARAMETRO
+} asc, desc, avg, min, max, apr, rep, asc, rep, avg
