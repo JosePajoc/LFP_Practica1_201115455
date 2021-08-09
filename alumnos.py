@@ -9,9 +9,11 @@ class estudiante():
     def verNota(self):
         return self.nota
     
+    
+    '''
     def nuevoNombre(self, nueNombre):
         self.nombre = nueNombre
     
     def nuevaNota(self, nueNota):
         self.nota = nueNota
-    
+    '''

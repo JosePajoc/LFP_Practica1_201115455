@@ -4,6 +4,9 @@ import webbrowser                                               #Abrir navegador
 from alumnos import estudiante
 
 opcion = 0
+gano = 0 
+perdio = 0
+promedio = 0
 ruta = ""
 archivoCargado = False
 archivoLFP = []                                                 #Lista para cada línea del archivo
@@ -50,8 +53,38 @@ def procesarArchivo():
         alumnos.append(estudiante(nombre2, float(nota3))) 
     archivoCargado = True
 
+def ascendenteNotas():
+    global alumnos
+    #La lista de objetos se ordena en forma ascendente siempre
+    for i in range(len(alumnos)):
+        for j in range(len(alumnos) - 1):
+            if alumnos[j].verNota() > alumnos[j+1].verNota():
+                temp = alumnos[j+1]
+                alumnos[j+1] = alumnos[j]
+                alumnos[j] = temp
+
+def descendenteNotas():
+    global alumnos                                  #Solo se recorre la lista de atrás hacia adelante
+    tamano = len(alumnos)
+    for i in range(tamano-1, -1, -1):
+        print(alumnos[i].verNombre())
+        print(alumnos[i].verNota())
+
+def ganoPerdioPromedio():
+    global gano, perdio, promedio
+    cantidad = 0
+    suma = 0
+    for i in range(len(alumnos)):
+        if alumnos[i].verNota() >= 60:
+            gano = gano + 1
+        else:
+            perdio = perdio + 1
+        suma = suma + alumnos[i].verNota()
+        cantidad = cantidad + 1
+    promedio = suma / cantidad
+
 def mostrarConsola():
-    global curso, parametros,alumnos
+    global curso, parametros,alumnos, gano, perdio, promedio
     separador()
     print("Curso: " + curso)
     separador()
@@ -59,10 +92,21 @@ def mostrarConsola():
     separador()
     print("Total de estudiantes: " + str(len(alumnos)))
     separador()
+    ascendenteNotas()
     print("Estudiantes: ")
     for i in range(len(alumnos)):
         print(alumnos[i].verNombre())
         print(alumnos[i].verNota())
+    separador()
+    descendenteNotas()
+    separador()
+    print("Nota máxima, alumno: " + alumnos[len(alumnos)-1].verNombre() + " Nota: " + str(alumnos[len(alumnos)-1].verNota()))
+    print("Nota mínima, alumno: " + alumnos[0].verNombre() + " Nota: " + str(alumnos[0].verNota()))
+    separador()
+    ganoPerdioPromedio()
+    print('Total de aprobados: ' + str(gano))
+    print('Total de reaprobados: ' + str(perdio))
+    print('Promedio: ' + str(promedio))
 
 
 while opcion!=4:
