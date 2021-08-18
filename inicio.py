@@ -39,7 +39,8 @@ def procesarArchivo():
     curso = curso1.replace("\n", "")
     
     parametros = archivoLFP[len(archivoLFP)-1].replace("} ","")
-    listaParametros = parametros.split(", ")
+    parametros1 = parametros.replace(" ", "")
+    listaParametros = parametros1.split(",")
     
     for x in range(1,len(archivoLFP)-1):        
         temporal = archivoLFP[x].split(";")                     #Lista temporal de estudiantes
